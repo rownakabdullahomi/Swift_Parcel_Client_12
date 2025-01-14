@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -12,6 +12,7 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user, userLogout } = useContext(AuthContext);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const profileDropdownRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -29,6 +30,23 @@ const Navbar = () => {
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen( !profileDropdownOpen);
   };
+
+   // Close profile dropdown when clicking outside
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target)
+      ) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     userLogout()
@@ -136,7 +154,7 @@ const Navbar = () => {
           </button>
 
           {/* Profile Dropdown */}
-          <div className="dropdown dropdown-end relative">
+          <div  ref={profileDropdownRef} className="dropdown dropdown-end relative">
             <button
               onClick={toggleProfileDropdown}
               className="btn btn-ghost btn-circle avatar"
@@ -170,7 +188,7 @@ const Navbar = () => {
                   {user && user?.email ? (
                     <button
                       onClick={handleLogout}
-                      className="text-secondary font-semibold"
+                      className="text-error font-semibold"
                     >
                       Logout
                     </button>

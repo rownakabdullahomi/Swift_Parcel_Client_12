@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import {
   createUserWithEmailAndPassword,
@@ -40,15 +41,17 @@ const AuthProvider = ({ children }) => {
   };
 
   const googleLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
-  const updateUserProfile = (updatedData) => {
-    return updateProfile(auth.currentUser, updatedData).then(() => {
-      const updatedUser = { ...auth.currentUser };
-      setUser(updatedUser);
-    });
-  };
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    })
+  }
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {

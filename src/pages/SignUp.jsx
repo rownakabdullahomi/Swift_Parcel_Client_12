@@ -1,37 +1,35 @@
-
-
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
-
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { AuthContext } from "../providers/AuthProvider";
-
+import { TbFidgetSpinner } from "react-icons/tb";
+import useAuth from "../hooks/useAuth";
+import { imageUpload } from "../api/utils";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const { userRegister, setUser, googleLogin, updateUserProfile } =
-    useContext(AuthContext);
+  const { userRegister, googleLogin, updateUserProfile, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const name = formData.get("name");
-    const photo = formData.get("photo");
-    const email = formData.get("email");
-    const password = formData.get("password");
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const userType = form.userType.value;
+    const image = event.target.image.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
 
-   
+    // Validate password
     const validatePassword = (password) => {
-      // Check if password meets the criteria
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
       return regex.test(password);
     };
 
-    // Validate password
     if (!validatePassword(password)) {
       toast.error(
         "Password must have at least one uppercase letter, one lowercase letter, and at least 6 characters."
@@ -39,32 +37,36 @@ const SignUp = () => {
       return;
     }
 
-    userRegister(email, password)
-      .then((res) => {
-        // console.log(res.user);
-        const user = res.user;
-        setUser(user);
-        updateUserProfile({ displayName: name, photoURL: photo });
-        toast.success("Registration Successful!");
-        navigate("/");
-      })
-      .catch((error) => {
-        toast.error("Registration Failed! " + error.message);
-      });
+    //1. send image to imgbb
+    const photoURL = await imageUpload(image);
+
+    try {
+      //2. User Registration
+      const result = await userRegister(email, password);
+
+      //3. Save username & profile photo
+      await updateUserProfile(name, photoURL);
+      console.log(result);
+
+      navigate("/");
+      toast.success(`Registration Successful as ${userType}!`);
+    } catch (err) {
+      console.log(err);
+      toast.error("Registration Failed! " + err?.message);
+    }
   };
 
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then((res) => {
-        const user = res.user;
-        setUser(user);
-        toast.success("Google login successful!");
-        navigate("/");
-      })
-      .catch((error) => {
-        // console.log(error.message);
-        toast.error("Google login failed! " + error.message);
-      });
+  // Handle Google Signin
+  const handleGoogleLogin = async () => {
+    try {
+      //User Registration using google
+      await googleLogin();
+      navigate("/");
+      toast.success("Google login successful!");
+    } catch (err) {
+      console.log(err);
+      toast.error("Google login failed! " + err?.message);
+    }
   };
 
   const handleShowPassword = () => {
@@ -94,17 +96,20 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Photo URL Input */}
+            {/* Image Input */}
             <div>
-              <label className="block text-sm font-medium ">Photo URL</label>
+              <label htmlFor="image" className="block text-sm font-medium mb-1">
+                Select Image
+              </label>
               <input
-                type="text"
-                name="photo"
-                placeholder="Enter your Photo URL"
-                className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
                 required
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
               />
             </div>
+
             {/* Email Input */}
             <div>
               <label className="block text-sm font-medium ">
@@ -117,6 +122,30 @@ const SignUp = () => {
                 className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
                 required
               />
+            </div>
+
+            {/* User Type Dropdown */}
+            <div>
+              <label
+                htmlFor="userType"
+                className="block text-sm font-medium mb-1"
+              >
+                User Type
+              </label>
+              <select
+                id="userType"
+                name="userType"
+                className="select select-bordered w-full mt-1 mb-1 focus:ring-2 focus:ring-secondary focus:outline-none transition-all duration-300 ease-in-out bg-base-100 hover:bg-base-200 focus:bg-base-300"
+                required
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Select User Type
+                </option>
+                <option value="User">User</option>
+                <option value="DeliveryMan">Delivery Man</option>
+                <option value="Admin">Admin</option>
+              </select>
             </div>
 
             {/* Password Input */}
@@ -152,7 +181,11 @@ const SignUp = () => {
             type="submit"
             className="btn btn-secondary btn-outline w-full mt-6"
           >
-            Register
+            {loading ? (
+              <TbFidgetSpinner className="animate-spin m-auto" />
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
 
