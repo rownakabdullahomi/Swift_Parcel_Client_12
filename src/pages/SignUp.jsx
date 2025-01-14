@@ -6,10 +6,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAuth from "../hooks/useAuth";
 import { imageUpload } from "../api/utils";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const SignUp = () => {
   const navigate = useNavigate();
-
+  const axiosPublic = useAxiosPublic();
   const { userRegister, googleLogin, updateUserProfile, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -48,8 +49,19 @@ const SignUp = () => {
       await updateUserProfile(name, photoURL);
       console.log(result);
 
-      navigate("/");
-      toast.success(`Registration Successful as ${userType}!`);
+      //   4. Save new user to db
+      const userInfo = {
+        name, email, userType, photoURL
+      }
+     
+      const res = await axiosPublic.post("/users", userInfo);
+      if(res.data.insertedId) {
+        toast.success(`Registration Successful as ${userType}!`);
+        navigate("/");
+      }
+
+      
+     
     } catch (err) {
       console.log(err);
       toast.error("Registration Failed! " + err?.message);

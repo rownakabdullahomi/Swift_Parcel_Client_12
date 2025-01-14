@@ -14,3 +14,6 @@ export const imageUpload = async imageData => {
     const image_url = data.data.display_url;
     return image_url;
 }
+
+
+
