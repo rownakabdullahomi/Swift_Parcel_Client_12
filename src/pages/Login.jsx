@@ -1,52 +1,38 @@
-import { useContext, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
+import { useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import useAuth from "../hooks/useAuth";
+import SocialLogin from "../components/shared/SocialLogin";
 
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // console.log(location);
-  const { userLogin, setUser, googleLogin } = useContext(AuthContext);
+  const { userLogin, user, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const from = location?.state?.from?.pathname || '/'
+  if (loading) return <p>Loading</p>
+  if (user) return <Navigate to={from} replace={true} />
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+   // form submit handler
+   const handleLogin = async event => {
+    event.preventDefault()
+    const form = event.target
+    const email = form.email.value
+    const password = form.password.value
 
-    userLogin(email, password)
-      .then((res) => {
-        // console.log(res.user);
-        const user = res.user;
-        setUser(user);
-        toast.success("Login successful!");
-        navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => {
-        // console.log(error.message);
-        toast.error("Login failed!  " + error.message);
-      });
-  };
-
-  const handleGoogleLogin = async () => {
     try {
-      const res = await googleLogin();
-      const user = res?.user;
-      setUser(user);
-      toast.success("Google login successful!");
-      navigate(location?.state ? location.state : "/");
-      
-      }
-  
-    catch (error) {
-      toast.error("Google login failed! " + error.message);
+      //User Login
+       await userLogin(email, password)
+      navigate(from, { replace: true })
+      toast.success('Login Successful')
+    } catch (err) {
+      console.log(err)
+      toast.error(err?.message)
     }
-  };
+  }
   
 
   const handleShowPassword = () => {
@@ -119,15 +105,7 @@ const Login = () => {
         <div className="divider text-sm text-gray-400">OR</div>
 
         {/* Social Login */}
-        <div className="space-y-3">
-          <button
-            onClick={handleGoogleLogin}
-            className="btn btn-outline w-full flex items-center justify-center"
-          >
-            <FcGoogle size={24} />
-            Login With Google
-          </button>
-        </div>
+        <SocialLogin></SocialLogin>
 
         {/* Register Link */}
         <p className="text-center text-sm text-gray-600">

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -7,11 +6,12 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import useAuth from "../hooks/useAuth";
 import { imageUpload } from "../api/utils";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import SocialLogin from "../components/shared/SocialLogin";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const { userRegister, googleLogin, updateUserProfile, loading } = useAuth();
+  const { userRegister, updateUserProfile, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = async (event) => {
@@ -51,35 +51,49 @@ const SignUp = () => {
 
       //   4. Save new user to db
       const userInfo = {
-        name, email, userType, photoURL
-      }
-     
+        name,
+        email,
+        userType,
+        photoURL,
+      };
+
       const res = await axiosPublic.post("/users", userInfo);
-      if(res.data.insertedId) {
+      if (res.data.insertedId) {
         toast.success(`Registration Successful as ${userType}!`);
         navigate("/");
       }
-
-      
-     
     } catch (err) {
       console.log(err);
       toast.error("Registration Failed! " + err?.message);
     }
   };
 
-  // Handle Google Signin
-  const handleGoogleLogin = async () => {
-    try {
-      //User Registration using google
-      await googleLogin();
-      navigate("/");
-      toast.success("Google login successful!");
-    } catch (err) {
-      console.log(err);
-      toast.error("Google login failed! " + err?.message);
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     //User Registration using google
+  //     const data = await googleLogin();
+  //     //   4. Save new user to db
+  //     const userInfo = {
+  //       name: data.user.displayName,
+  //       email: data.user.email,
+  //       userType: "User",
+  //       photoURL: data.user.photoURL,
+  //     };
+  //     // console.log(data.user);
+  //     // console.log(userInfo);
+  //     const res = await axiosPublic.post("/users", userInfo);
+  //     if (res.data.insertedId) {
+  //       toast.success(`"Google Login Successful!" as ${userInfo.name}!`);
+  //     }
+  //     else{
+  //       toast.success("Google Login Successful!");
+  //     }
+  //     navigate("/");
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error("Google login failed! " + err?.message);
+  //   }
+  // };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -205,15 +219,7 @@ const SignUp = () => {
         <div className="divider text-sm text-gray-400">OR</div>
 
         {/* Social Register */}
-        <div className="space-y-3">
-          <button
-            onClick={handleGoogleLogin}
-            className="btn btn-outline w-full flex items-center justify-center"
-          >
-            <FcGoogle size={24} />
-            Register With Google
-          </button>
-        </div>
+        <SocialLogin></SocialLogin>
 
         {/* Login Link */}
         <p className="text-center text-sm text-gray-600">
