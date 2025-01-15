@@ -32,8 +32,8 @@ const Features = () => {
   ];
 
   return (
-    <section className="bg-base-100" id="features">
-      <div className="container mx-auto">
+    <section className="bg-base-100 px-4 lg:px-6" >
+      <div className="">
         {/* Heading */}
         {/* <div className="text-center mb-12 py-16">
           <h2 className="text-4xl font-bold  mb-4">

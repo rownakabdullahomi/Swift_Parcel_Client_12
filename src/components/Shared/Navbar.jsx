@@ -85,9 +85,9 @@ const Navbar = () => {
             className="hidden lg:block text-4xl font-bold tracking-tight relative group"
           >
             <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-lg opacity-30 group-hover:opacity-70 transition-opacity duration-300"></span>
-            <div className="relative text-gray-600 group-hover:text-white transition-colors duration-300">
-              <span className="text-blue-500">S</span>wift
-              <span className="text-purple-500">P</span>arcel
+            <div className="relative text-gray-700 group-hover:text-white transition-colors duration-300">
+              <span className="text-yellow-600">S</span>wift
+              <span className="text-red-600">P</span>arcel
             </div>
           </Link>
 
@@ -120,18 +120,19 @@ const Navbar = () => {
                     to={"/"}
                     className="flex gap-0 relative text-gray-600 group-hover:text-white transition-colors duration-300"
                   >
-                    <span className="text-blue-500">S</span>wift
-                    <span className="text-purple-500">P</span>arcel
+                    <span className="text-yellow-600">S</span>wift
+                    <span className="text-red-600">P</span>arcel
                   </Link>
                 </li>
-                {links}
+                <div className="font-semibold text-yellow-500">{links}</div>
+                
               </ul>
             )}
           </div>
         </div>
 
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal space-x-6 font-semibold">
+          <ul className="menu menu-horizontal space-x-6 font-bold text-yellow-500">
             {links}
           </ul>
         </div>

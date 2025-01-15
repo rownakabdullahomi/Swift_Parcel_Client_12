@@ -13,7 +13,7 @@ const Banner = () => {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
-          <span>
+          <span className="text-yellow-500">
             <Typewriter
               words={[
                 "Swift Parcel Delivery Services",
@@ -38,7 +38,7 @@ const Banner = () => {
             placeholder="Search here ..."
             className="w-full p-3 rounded-l-md border-none focus:outline-none text-gray-800"
           />
-          <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-r-md">
+          <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-r-md">
             Search
           </button>
         </div>
