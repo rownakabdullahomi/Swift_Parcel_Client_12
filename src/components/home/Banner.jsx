@@ -1,5 +1,5 @@
 import { Typewriter } from "react-simple-typewriter";
-import BannerImg from "../assets/banner.jpg";
+import BannerImg from "../../assets/banner.jpg";
 
 const Banner = () => {
   return (

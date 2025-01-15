@@ -1,6 +1,6 @@
 import { FaShieldAlt, FaShippingFast, FaMapMarkedAlt } from "react-icons/fa";
 import { Bounce, Slide, Fade } from "react-awesome-reveal";
-import Headings from "./shared/Headings";
+import Headings from "../shared/Headings";
 import { motion } from "framer-motion";
 
 const Features = () => {

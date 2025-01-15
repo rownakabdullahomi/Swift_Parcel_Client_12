@@ -125,7 +125,6 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <div className="font-semibold text-yellow-500">{links}</div>
-                
               </ul>
             )}
           </div>
@@ -155,59 +154,66 @@ const Navbar = () => {
           </button>
 
           {/* Profile Dropdown */}
-<div
-  ref={profileDropdownRef}
-  className="dropdown dropdown-end relative"
->
-  <button
-    onClick={toggleProfileDropdown}
-    className="btn btn-ghost btn-circle avatar"
-    aria-label="Toggle Profile Dropdown"
-  >
-    <div className="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden border border-gray-300 bg-gray-200">
-      {user && user.email ? (
-        <img
-          referrerPolicy="no-referrer"
-          alt="User Profile"
-          src={user?.photoURL || "https://via.placeholder.com/40"}
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <img src={userImage} alt="" />
-      )}
-    </div>
-  </button>
-  {profileDropdownOpen && (
-    <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-      {/* Username (non-clickable) */}
-      <li>
-        <div id="name" className="justify-between text-base-content font-semibold">
-          {user.displayName}
-        </div>
-      </li>
-
-      {/* Other Dropdown Items */}
-      <li>
-        <Link to={"/dashboard"} className="justify-between text-base-content font-semibold">Dashboard</Link>
-      </li>
-      <li>
-        {user && user?.email ? (
-          <button
-            onClick={handleLogout}
-            className="text-error font-semibold"
+          <div
+            ref={profileDropdownRef}
+            className="dropdown dropdown-end relative"
           >
-            Logout
-          </button>
-        ) : (
-          <Link to="/login" className="text-primary font-semibold">
-            Login
-          </Link>
-        )}
-      </li>
-    </ul>
-  )}
-</div>
+            <button
+              onClick={toggleProfileDropdown}
+              className="btn btn-ghost btn-circle avatar"
+              aria-label="Toggle Profile Dropdown"
+            >
+              <div className="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden border border-gray-300 bg-gray-200">
+                {user && user.email ? (
+                  <img
+                    referrerPolicy="no-referrer"
+                    alt="User Profile"
+                    src={user?.photoURL || "https://via.placeholder.com/40"}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img src={userImage} alt="" />
+                )}
+              </div>
+            </button>
+            {profileDropdownOpen && (
+              <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                {/* Username (non-clickable) */}
+                <li>
+                  <div
+                    id="name"
+                    className="justify-between text-base-content font-semibold"
+                  >
+                    {user?.email ? user.displayName : ""}
+                  </div>
+                </li>
 
+                {/* Other Dropdown Items */}
+                <li>
+                  <Link
+                    to={"/dashboard"}
+                    className="justify-between text-base-content font-semibold"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  {user && user?.email ? (
+                    <button
+                      onClick={handleLogout}
+                      className="text-error font-semibold"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <Link to="/login" className="text-primary font-semibold">
+                      Login
+                    </Link>
+                  )}
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </div>

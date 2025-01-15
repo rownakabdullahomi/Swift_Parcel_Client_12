@@ -4,7 +4,8 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import SocialLogin from "../components/shared/SocialLogin";
-
+import { TbFidgetSpinner } from "react-icons/tb";
+// import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,28 +13,27 @@ const Login = () => {
   // console.log(location);
   const { userLogin, user, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const from = location?.state?.from?.pathname || '/'
-  if (loading) return <p>Loading</p>
-  if (user) return <Navigate to={from} replace={true} />
+  const from = location?.state?.from?.pathname || "/";
+  // if (loading) return <LoadingSpinner></LoadingSpinner>
+  if (user) return <Navigate to={from} replace={true} />;
 
-   // form submit handler
-   const handleLogin = async event => {
-    event.preventDefault()
-    const form = event.target
-    const email = form.email.value
-    const password = form.password.value
+  // form submit handler
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
     try {
       //User Login
-       await userLogin(email, password)
-      navigate(from, { replace: true })
-      toast.success('Login Successful')
+      await userLogin(email, password);
+      navigate(from, { replace: true });
+      toast.success("Login Successful");
     } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
+      console.log(err);
+      toast.error(err?.message);
     }
-  }
-  
+  };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -95,9 +95,13 @@ const Login = () => {
           {/* Login Button */}
           <button
             type="submit"
-            className="btn btn-outline btn-primary w-full mt-6"
+            className="btn btn-primary btn-outline w-full mt-6"
           >
-            Login
+            {loading ? (
+              <TbFidgetSpinner className="animate-spin m-auto" />
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 

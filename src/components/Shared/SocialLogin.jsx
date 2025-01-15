@@ -4,10 +4,13 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+
 const SocialLogin = () => {
-    const navigate = useNavigate();
-    const axiosPublic = useAxiosPublic();
-  const {  googleLogin } = useAuth();
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
+  const { googleLogin } = useAuth();
+
+  
   // Handle Google Signin
   const handleGoogleLogin = async () => {
     try {

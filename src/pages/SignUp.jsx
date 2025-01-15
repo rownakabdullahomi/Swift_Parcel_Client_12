@@ -68,32 +68,6 @@ const SignUp = () => {
     }
   };
 
-  // const handleGoogleLogin = async () => {
-  //   try {
-  //     //User Registration using google
-  //     const data = await googleLogin();
-  //     //   4. Save new user to db
-  //     const userInfo = {
-  //       name: data.user.displayName,
-  //       email: data.user.email,
-  //       userType: "User",
-  //       photoURL: data.user.photoURL,
-  //     };
-  //     // console.log(data.user);
-  //     // console.log(userInfo);
-  //     const res = await axiosPublic.post("/users", userInfo);
-  //     if (res.data.insertedId) {
-  //       toast.success(`"Google Login Successful!" as ${userInfo.name}!`);
-  //     }
-  //     else{
-  //       toast.success("Google Login Successful!");
-  //     }
-  //     navigate("/");
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast.error("Google login failed! " + err?.message);
-  //   }
-  // };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);

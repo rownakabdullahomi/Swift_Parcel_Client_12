@@ -91,7 +91,7 @@ const Footer = () => {
           <h6 className="footer-title text-yellow-500">Follow Us</h6>
           <div className="flex items-center gap-4 mt-4 animate-pulse">
             <a
-              href="https://twitter.com/tutorhunt"
+              href="https://twitter.com/swiftparcel"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-yellow-500"
@@ -99,7 +99,7 @@ const Footer = () => {
               <FaTwitter />
             </a>
             <a
-              href="https://youtube.com/tutorhunt"
+              href="https://youtube.com/swiftparcel"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-yellow-500"
@@ -107,7 +107,7 @@ const Footer = () => {
               <FaYoutube />
             </a>
             <a
-              href="https://facebook.com/tutorhunt"
+              href="https://facebook.com/swiftparcel"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-yellow-500"
@@ -115,7 +115,7 @@ const Footer = () => {
               <FaFacebook />
             </a>
             <a
-              href="https://instagram.com/tutorhunt"
+              href="https://instagram.com/swiftparcel"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-yellow-500"
@@ -123,7 +123,7 @@ const Footer = () => {
               <FaInstagram />
             </a>
             <a
-              href="https://linkedin.com/tutorhunt"
+              href="https://linkedin.com/swiftparcel"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-yellow-500"
