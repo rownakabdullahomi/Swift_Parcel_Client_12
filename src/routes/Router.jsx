@@ -5,6 +5,9 @@ import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
+import BookParcel from "../pages/dashboard/user/BookParcel";
+import MyParcels from "../pages/dashboard/user/MyParcels";
+import MyProfile from "../pages/dashboard/user/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +30,24 @@ const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
-    children: [],
+    children: [
+      {
+        index: true,
+        element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
+      },
+      {
+        path: "bookParcel",
+        element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
+      },
+      {
+        path: "myParcels",
+        element: <PrivateRoute><MyParcels></MyParcels></PrivateRoute>
+      },
+      {
+        path: "myProfile",
+        element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+      },
+    ],
   },
 ]);
 
