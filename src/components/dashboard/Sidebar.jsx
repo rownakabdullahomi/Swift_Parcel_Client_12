@@ -61,7 +61,7 @@ const Sidebar = ({toggleSidebar}) => {
 
   // Get menus for the current user type
   const currentMenu = menuItems[userType] || [];
-  //   const currentMenu = menuItems["User"] || [];
+  
 
   return (
     <aside className="w-64 bg-gray-800 text-white h-screen shadow-lg flex flex-col">

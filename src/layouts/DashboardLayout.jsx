@@ -36,12 +36,12 @@ const DashboardLayout = () => {
         </div>
 
         {/* Content Area */}
-        <div className="py-6">
+        <div className="py-6 mx-6">
           <Outlet />
         </div>
       </div>
 
-      {/* Overlay for Mobile Devices */}
+      {/* Overlay for Small Devices */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
