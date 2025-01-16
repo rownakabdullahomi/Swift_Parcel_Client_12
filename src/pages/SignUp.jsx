@@ -144,7 +144,7 @@ const SignUp = () => {
                 </option>
                 <option value="User">User</option>
                 <option value="DeliveryMan">Delivery Man</option>
-                <option value="Admin">Admin</option>
+                {/* <option value="Admin">Admin</option> */}
               </select>
             </div>
 

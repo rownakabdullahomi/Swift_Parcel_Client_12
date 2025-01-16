@@ -8,6 +8,10 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import BookParcel from "../pages/dashboard/user/BookParcel";
 import MyParcels from "../pages/dashboard/user/MyParcels";
 import MyProfile from "../pages/dashboard/user/MyProfile";
+import MyDeliveryList from "../pages/dashboard/deliveryMan/MyDeliveryList";
+import MyReviews from "../pages/dashboard/deliveryMan/MyReviews";
+import Statistics from "../pages/dashboard/admin/Statistics";
+import AllParcels from "../pages/dashboard/admin/AllParcels";
 
 const router = createBrowserRouter([
   {
@@ -31,10 +35,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      {
-        index: true,
-        element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
-      },
+      // {
+      //   index: true,
+      //   element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
+      // },
       {
         path: "bookParcel",
         element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
@@ -47,6 +51,24 @@ const router = createBrowserRouter([
         path: "myProfile",
         element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
       },
+      {
+        path: "myDeliveryList",
+        element: <PrivateRoute><MyDeliveryList></MyDeliveryList></PrivateRoute>
+      },
+      {
+        path: "myReviews",
+        element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>
+      },
+      // Admin
+      {
+        path: "statistics",
+        element: <PrivateRoute><Statistics></Statistics></PrivateRoute>
+      },
+      {
+        path: "allParcels",
+        element: <PrivateRoute><AllParcels></AllParcels></PrivateRoute>
+      },
+      
     ],
   },
 ]);

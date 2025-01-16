@@ -2,11 +2,18 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import moment from 'moment';
 
 const BookParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [calculatedPrice, setCalculatedPrice] = useState(0.0);
+
+   // Get today's date using moment.js
+   const today = moment();
+
+    // Format date for the 'min' attribute in YYYY-MM-DD
+  const minDate = today.format("YYYY-MM-DD");
 
   const handleWeightChange = (event) => {
     const inputValue = event.target.value;
@@ -44,11 +51,14 @@ const BookParcel = () => {
     const receiverName = form.receiverName.value;
     const receiverPhone = form.receiverPhone.value;
     const deliveryAddress = form.deliveryAddress.value;
-    const deliveryDate = form.deliveryDate.value;
+    const rawRequestedDeliveryDate = form.deliveryDate.value;
     const latitude = parseFloat(form.latitude.value);
     const longitude = parseFloat(form.longitude.value);
     const price = calculatedPrice;
     const status = "pending";
+
+      // Format the date using moment.js
+  const requestedDeliveryDate = moment(rawRequestedDeliveryDate, "YYYY-MM-DD").format("DD/MM/YYYY");
 
     // Create data object
     const parcelData = {
@@ -60,14 +70,14 @@ const BookParcel = () => {
       receiverName,
       receiverPhone,
       deliveryAddress,
-      deliveryDate,
+      requestedDeliveryDate,
       latitude,
       longitude,
       price,
       status,
     };
 
-    console.log("Parcel Data:", parcelData);
+    // console.log("Parcel Data:", parcelData);
 
     try {
       const res = await axiosSecure.post("/book/parcel", parcelData);
@@ -181,6 +191,7 @@ const BookParcel = () => {
           <input
             type="date"
             name="deliveryDate"
+            min={minDate} // Set the minimum date to today
             className="w-full px-4 py-2 border rounded-md"
             required
           />

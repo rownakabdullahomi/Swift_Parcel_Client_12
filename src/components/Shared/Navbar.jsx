@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import userImage from "../../assets/user.gif";
+import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(() => {
@@ -13,6 +14,9 @@ const Navbar = () => {
   const { user, userLogout } = useContext(AuthContext);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const profileDropdownRef = useRef(null);
+  const [userType] = useRole();
+
+
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -191,12 +195,19 @@ const Navbar = () => {
                 {/* Other Dropdown Items */}
                 <li>
                   <Link
-                    to={"/dashboard"}
+                    to={
+                      userType === "User"
+                        ? "/dashboard/bookParcel"
+                        : userType === "DeliveryMan"
+                        ? "/dashboard/myDeliveryList"
+                        : "/dashboard/statistics"
+                    }
                     className="justify-between text-base-content font-semibold"
                   >
                     Dashboard
                   </Link>
                 </li>
+
                 <li>
                   {user && user?.email ? (
                     <button

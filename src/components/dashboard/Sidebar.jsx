@@ -16,7 +16,7 @@ import useRole from "../../hooks/useRole";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { BiLogOut } from "react-icons/bi";
 
-const Sidebar = ({toggleSidebar}) => {
+const Sidebar = ({ toggleSidebar }) => {
   const { user, userLogout } = useAuth();
   const [userType, isLoading] = useRole();
 
@@ -39,29 +39,28 @@ const Sidebar = ({toggleSidebar}) => {
       {
         name: "My Delivery List",
         icon: <FaTruck />,
-        path: "/dashboard/delivery-list",
+        path: "/dashboard/myDeliveryList",
       },
-      { name: "My Reviews", icon: <FaStar />, path: "/dashboard/my-reviews" },
+      { name: "My Reviews", icon: <FaStar />, path: "/dashboard/myReviews" },
     ],
     Admin: [
-      { name: "All Parcels", icon: <FaBox />, path: "/dashboard/all-parcels" },
+      {
+        name: "Statistics",
+        icon: <FaChartBar />,
+        path: "/dashboard/statistics",
+      },
+      { name: "All Parcels", icon: <FaBox />, path: "/dashboard/allParcels" },
       { name: "All Users", icon: <FaUsers />, path: "/dashboard/all-users" },
       {
         name: "All Delivery Men",
         icon: <FaTruck />,
         path: "/dashboard/all-delivery-men",
       },
-      {
-        name: "Statistics",
-        icon: <FaChartBar />,
-        path: "/dashboard/statistics",
-      },
     ],
   };
 
   // Get menus for the current user type
   const currentMenu = menuItems[userType] || [];
-  
 
   return (
     <aside className="w-64 bg-gray-800 text-white h-screen shadow-lg flex flex-col">
@@ -88,7 +87,7 @@ const Sidebar = ({toggleSidebar}) => {
       {/* Navigation Section */}
       <nav className="flex flex-col flex-grow mt-6">
         {/* Main menu items */}
-        {/* <ul className="space-y-4">
+        <ul className="space-y-4">
           {currentMenu.map((item, index) => (
             <li id="sidebar" key={index}>
               <NavLink
@@ -100,9 +99,9 @@ const Sidebar = ({toggleSidebar}) => {
               </NavLink>
             </li>
           ))}
-        </ul> */}
+        </ul>
 
-        <ul className="space-y-4">
+        {/* <ul className="space-y-4">
           {currentMenu.map((item, index) => (
             <li key={index}>
               <NavLink
@@ -110,7 +109,8 @@ const Sidebar = ({toggleSidebar}) => {
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 rounded-md transition ${
                     isActive ||
-                    (item.path === "/dashboard/bookParcel" &&
+                    item.path === "/dashboard/bookParcel" ||
+                    (item.path === "/dashboard/myDeliveryList" &&
                       location.pathname === "/dashboard")
                       ? "bg-gray-700 text-white"
                       : "text-gray-200 hover:bg-gray-700 hover:text-white"
@@ -122,7 +122,7 @@ const Sidebar = ({toggleSidebar}) => {
               </NavLink>
             </li>
           ))}
-        </ul>
+        </ul> */}
 
         {/* Back to Home link */}
         <ul className="mt-auto mb-5">
@@ -136,15 +136,15 @@ const Sidebar = ({toggleSidebar}) => {
               </span>
               <span className="font-medium">Back to Home</span>
             </Link>
-            <li
-              onClick={userLogout}
-              className="cursor-pointer flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white rounded-md transition"
-            >
-              <span className="text-lg mr-3">
-                <BiLogOut></BiLogOut>
-              </span>
-              <span className="font-medium">Logout</span>
-            </li>
+          </li>
+          <li
+            onClick={userLogout}
+            className="cursor-pointer flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white rounded-md transition"
+          >
+            <span className="text-lg mr-3">
+              <BiLogOut></BiLogOut>
+            </span>
+            <span className="font-medium">Logout</span>
           </li>
         </ul>
       </nav>
