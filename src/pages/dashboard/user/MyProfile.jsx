@@ -72,7 +72,7 @@ const MyProfile = () => {
 
       // Update database profile
       const res = await axiosSecure.patch(
-        `/user/update/profile/${currentUser._id}`,
+        `/user/update/profile/${currentUser.email}`,
         updateData
       );
       if (res.data.modifiedCount > 0) {
