@@ -12,6 +12,7 @@ import MyDeliveryList from "../pages/dashboard/deliveryMan/MyDeliveryList";
 import MyReviews from "../pages/dashboard/deliveryMan/MyReviews";
 import Statistics from "../pages/dashboard/admin/Statistics";
 import AllParcels from "../pages/dashboard/admin/AllParcels";
+import UpdateParcel from "../pages/dashboard/user/UpdateParcel";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "myParcels",
         element: <PrivateRoute><MyParcels></MyParcels></PrivateRoute>
+      },
+      {
+        path: "update/parcel/:id",
+        element: <PrivateRoute><UpdateParcel></UpdateParcel></PrivateRoute>
       },
       {
         path: "myProfile",
