@@ -50,11 +50,11 @@ const Sidebar = ({ toggleSidebar }) => {
         path: "/dashboard/statistics",
       },
       { name: "All Parcels", icon: <FaBox />, path: "/dashboard/allParcels" },
-      { name: "All Users", icon: <FaUsers />, path: "/dashboard/all-users" },
+      { name: "All Users", icon: <FaUsers />, path: "/dashboard/allUsers" },
       {
-        name: "All Delivery Men",
+        name: "All Delivery Man",
         icon: <FaTruck />,
-        path: "/dashboard/all-delivery-men",
+        path: "/dashboard/allDeliveryMan",
       },
     ],
   };

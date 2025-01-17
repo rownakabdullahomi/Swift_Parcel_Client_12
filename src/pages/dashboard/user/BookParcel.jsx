@@ -3,11 +3,15 @@ import toast from "react-hot-toast";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import moment from 'moment';
+import usePhone from "../../../hooks/usePhone";
 
 const BookParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [calculatedPrice, setCalculatedPrice] = useState(0.0);
+  const [userPhone] = usePhone();
+
+//  console.log(userPhone);
 
    // Get today's date using moment.js
    const today = moment();
@@ -122,8 +126,9 @@ const BookParcel = () => {
           <input
             type="tel"
             name="phone"
-            className="w-full px-4 py-2 border rounded-md"
-            required
+            defaultValue={userPhone}
+            className="w-full px-4 py-2 border rounded-md bg-gray-100 text-gray-600"
+            readOnly
           />
         </div>
         <div>

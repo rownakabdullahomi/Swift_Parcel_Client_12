@@ -19,6 +19,7 @@ const SignUp = () => {
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
+    const phone = form.phone.value;
     const password = form.password.value;
     const userType = form.userType.value;
     const image = event.target.image.files[0];
@@ -53,6 +54,7 @@ const SignUp = () => {
       const userInfo = {
         name,
         email,
+        phone,
         userType,
         photoURL,
       };
@@ -119,6 +121,20 @@ const SignUp = () => {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
+                className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
+                required
+              />
+            </div>
+
+            {/* Phone Number Input */}
+            <div>
+              <label className="block text-sm font-medium ">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                name="phone"
+                placeholder="Enter your phone number"
                 className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
                 required
               />
