@@ -15,6 +15,8 @@ import AllParcels from "../pages/dashboard/admin/AllParcels";
 import UpdateParcel from "../pages/dashboard/user/UpdateParcel";
 import AllDeliveryMan from "../pages/dashboard/admin/AllDeliveryMan";
 import AllUsers from "../pages/dashboard/admin/AllUsers";
+import CheckoutPage from "../pages/dashboard/user/CheckoutPage";
+import PaymentSuccess from "../pages/dashboard/user/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
       {
         path: "myReviews",
         element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>
+      },
+      {
+        path: "checkout",
+        element: <PrivateRoute><CheckoutPage></CheckoutPage></PrivateRoute>
+      },
+      {
+        path: "payment-success",
+        element: <PrivateRoute><PaymentSuccess></PaymentSuccess></PrivateRoute>
       },
       // Admin
       {

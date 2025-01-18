@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   // State to manage the selected status filter
   const [statusFilter, setStatusFilter] = useState("all");
@@ -247,9 +248,23 @@ const MyParcels = () => {
                     Review
                   </button>
                 )}
-                <button className="px-2 py-1 rounded bg-yellow-500 text-white">
-                  Pay
-                </button>
+                {parcel.paymentStatus ? (
+                  <button
+                    onClick={() => toast.error("Payment already done!")}
+                    className="px-2 py-1 rounded bg-yellow-500 text-white"
+                  >
+                    Pay
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      navigate("/dashboard/checkout", { state: { parcel } })
+                    }
+                    className="px-2 py-1 rounded bg-yellow-500 text-white"
+                  >
+                    Pay
+                  </button>
+                )}
               </td>
             </tr>
           ))}
@@ -273,7 +288,9 @@ const MyParcels = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">User's Name:</label>
+            <label className="block text-gray-700 mb-1">
+              User&apos;s Name:
+            </label>
             <input
               type="text"
               value={user?.displayName}
