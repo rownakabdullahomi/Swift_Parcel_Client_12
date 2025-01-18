@@ -54,7 +54,7 @@ const MyParcels = () => {
           if (res.data.modifiedCount > 0) {
             Swal.fire({
               title: "Cancelled!",
-              text: "Your file has been cancelled.",
+              text: "Your parcel has been cancelled.",
               icon: "success",
             });
             refetch(); 
