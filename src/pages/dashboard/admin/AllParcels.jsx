@@ -9,16 +9,21 @@ const AllParcels = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedParcelId, setSelectedParcelId] = useState(null);
   const [deliveryMen, setDeliveryMen] = useState([]);
+  const [parcels, setParcels] = useState([]); // State to manage local parcel data
   const [searchDateRange, setSearchDateRange] = useState({ from: "", to: "" });
 
-    // Get today's date using moment.js
-    const today = moment();
-  
-    // Format date for the 'min' attribute in YYYY-MM-DD
-    const minDate = today.format("YYYY-MM-DD");
+  // Get today's date using moment.js
+  const today = moment();
+
+  // Format date for the 'min' attribute in YYYY-MM-DD
+  const minDate = today.format("YYYY-MM-DD");
 
   const axiosSecure = useAxiosSecure();
-  const { data: parcels = [], isLoading: parcelsLoading, refetch } = useQuery({
+  const {
+    data: fetchedParcels = [],
+    isLoading: parcelsLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["parcels"],
     queryFn: async () => {
       const { data } = await axiosSecure("/all/parcels");
@@ -33,7 +38,6 @@ const AllParcels = () => {
       return data;
     },
   });
-  // console.log(parcels, users);
 
   useEffect(() => {
     if (users && users.length > 0) {
@@ -45,21 +49,24 @@ const AllParcels = () => {
     }
   }, [users]);
 
+  // Set parcels with the fetched data on component mount
+  useEffect(() => {
+    if (fetchedParcels.length > 0) {
+      setParcels(fetchedParcels); // Initialize parcels with fetched data
+    }
+  }, [fetchedParcels]);
+
   const handleManageClick = (parcelId) => {
     setSelectedParcelId(parcelId);
     setShowModal(true);
   };
 
-// console.log(selectedParcelId);
-
-
   const handleAssign = async (event) => {
     event.preventDefault();
     const form = event.target;
-    const selectedDeliveryManId = form.selectedDeliveryMan.value
-    const rawApproximateDate = form.approximateDate.value
-    
-     
+    const selectedDeliveryManId = form.selectedDeliveryMan.value;
+    const rawApproximateDate = form.approximateDate.value;
+
     if (!selectedDeliveryManId || !rawApproximateDate) {
       Swal.fire("Error", "Please select a delivery man and a date.", "error");
       return;
@@ -70,15 +77,17 @@ const AllParcels = () => {
       "DD/MM/YYYY"
     );
 
-
     const assignedData = {
       selectedDeliveryManId,
       approximateDate,
-    }
+    };
 
     // API call to update the database
     try {
-      const res = await axiosSecure.put(`/admin/update/parcel/${selectedParcelId}`, assignedData);
+      const res = await axiosSecure.put(
+        `/admin/update/parcel/${selectedParcelId}`,
+        assignedData
+      );
       if (res.data.modifiedCount > 0) {
         refetch();
         Swal.fire("Success", "Parcel assigned successfully!", "success");
@@ -89,20 +98,30 @@ const AllParcels = () => {
       Swal.fire("Error", `Failed to assign parcel ${error}`, "error");
       setShowModal(false);
     }
-
-    
-    // console.log(
-    //   `Updating parcel ${selectedParcel.id} with delivery man ${selectedDeliveryManId} and date ${approximateDate}`
-    // );
-   
   };
 
-  const handleSearch = () => {
-    console.log("Searching parcels between:", searchDateRange);
-    // Implement search logic here
+  const handleSearch = async () => {
+    let { from, to } = searchDateRange;
+    if (!from || !to) {
+      Swal.fire("Error", "Please select both date range fields.", "error");
+      return;
+    }
+
+    // Format the date using moment.js
+    from = moment(from, "YYYY-MM-DD").format("DD/MM/YYYY");
+    to = moment(to, "YYYY-MM-DD").format("DD/MM/YYYY");
+    // console.log(from, to);
+    try {
+      const { data } = await axiosSecure(
+        `/parcels/search?from=${from}&to=${to}`
+      );
+      setParcels(data); // Update state with search results
+    } catch (error) {
+      Swal.fire("Error", "Failed to fetch parcels.", error);
+    }
   };
 
-  if (parcelsLoading || usersLoading) return <LoadingSpinner></LoadingSpinner>;
+  if (parcelsLoading || usersLoading) return <LoadingSpinner />;
 
   return (
     <div className="py-6">
@@ -158,8 +177,6 @@ const AllParcels = () => {
             </tr>
           </thead>
           <tbody className="text-center">
-           
-
             {parcels.map((parcel) => (
               <tr key={parcel._id}>
                 <td className="border border-gray-300 p-2">{parcel?.name}</td>
@@ -190,7 +207,10 @@ const AllParcels = () => {
 
       {/* Modal */}
       {showModal && (
-        <form onSubmit={handleAssign} className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <form
+          onSubmit={handleAssign}
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+        >
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h3 className="text-xl font-semibold mb-4">Manage Parcel</h3>
             <div className="mb-4">
@@ -201,7 +221,6 @@ const AllParcels = () => {
                 id="deliveryManSelect"
                 name="selectedDeliveryMan"
                 className="w-full p-2 border rounded"
-                
               >
                 <option value="">-- Select Delivery Man --</option>
                 {deliveryMen.map((man) => (
@@ -230,12 +249,6 @@ const AllParcels = () => {
               >
                 Cancel
               </button>
-              {/* <button
-                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                onClick={handleAssign}
-              >
-                Assign
-              </button> */}
               <input
                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                 type="submit"
