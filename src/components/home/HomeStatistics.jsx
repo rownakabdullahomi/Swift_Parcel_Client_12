@@ -1,12 +1,12 @@
 import CountUp from "react-countup";
 import { useQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { motion } from "framer-motion";
 import Headings from "../shared/Headings";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const HomeStatistics = () => {
-  const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
 
   const {
     data: stats,
@@ -15,7 +15,7 @@ const HomeStatistics = () => {
   } = useQuery({
     queryKey: ["statistics"],
     queryFn: async () => {
-      const { data } = await axiosSecure("/home/statistics");
+      const { data } = await axiosPublic("/home/statistics");
       return data;
     },
   });
