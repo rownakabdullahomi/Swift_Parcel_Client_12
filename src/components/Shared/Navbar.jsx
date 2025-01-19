@@ -178,7 +178,7 @@ const Navbar = () => {
                   <img
                     referrerPolicy="no-referrer"
                     alt="User Profile"
-                    src={user?.photoURL || "https://via.placeholder.com/40"}
+                    src={user?.photoURL || "user"}
                     className="w-full h-full object-cover animate-pulse"
                   />
                 ) : (

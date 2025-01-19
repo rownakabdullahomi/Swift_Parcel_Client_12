@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 import { imageUpload } from "../api/utils";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import SocialLogin from "../components/shared/SocialLogin";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -70,13 +71,15 @@ const SignUp = () => {
     }
   };
 
-
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   return (
     <div className=" bg-base-300 flex items-center justify-center p-8">
+      <Helmet>
+        <title>Signup | SwiftParcel</title>
+      </Helmet>
       <div className="w-full max-w-md bg-base-200 rounded-xl border-2 border-gray-700 shadow-md p-6 space-y-6">
         <h2 className="text-3xl font-bold text-center ">Create Your Account</h2>
         <p className="text-sm text-center text-gray-500">
@@ -128,9 +131,7 @@ const SignUp = () => {
 
             {/* Phone Number Input */}
             <div>
-              <label className="block text-sm font-medium ">
-                Phone Number
-              </label>
+              <label className="block text-sm font-medium ">Phone Number</label>
               <input
                 type="text"
                 name="phone"

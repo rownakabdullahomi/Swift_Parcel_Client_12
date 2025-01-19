@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import { FaBars } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -12,6 +13,9 @@ const DashboardLayout = () => {
 
   return (
     <div className="relative min-h-screen bg-base-200 lg:flex">
+      <Helmet>
+        <title>Dashboard | SwiftParcel</title>
+      </Helmet>
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 z-30 w-64 bg-gray-800 text-white transform ${

@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import SocialLogin from "../components/shared/SocialLogin";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { Helmet } from "react-helmet-async";
 // import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const Login = () => {
@@ -41,6 +42,9 @@ const Login = () => {
 
   return (
     <div className=" bg-base-300 min-h-screen flex items-center justify-center p-8">
+      <Helmet>
+        <title>Login | SwiftParcel</title>
+      </Helmet>
       <div className="w-full max-w-md bg-base-200 border border-gray-500 rounded-xl shadow-md p-6 space-y-6">
         <h2 className="text-3xl font-bold text-center ">Welcome !</h2>
         <p className="text-sm text-center">Please login to your account.</p>

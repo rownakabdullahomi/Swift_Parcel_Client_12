@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/shared/LoadingSpinner";
 
+
 const UpdateParcel = () => {
   const { id: parcelId } = useParams();
   const { user } = useAuth();
@@ -33,7 +34,7 @@ const UpdateParcel = () => {
     },
   });
 
-//   console.log(parcel);
+  //   console.log(parcel);
 
   // Initialize the calculated price with the existing parcel price
   useEffect(() => {
@@ -42,7 +43,7 @@ const UpdateParcel = () => {
     }
   }, [parcel]);
 
-  if(isLoading) return <LoadingSpinner></LoadingSpinner>
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
 
   const handleWeightChange = (event) => {
     const inputValue = event.target.value;
@@ -100,11 +101,14 @@ const UpdateParcel = () => {
     console.log("Parcel Data:", parcelData);
 
     try {
-      const res = await axiosSecure.patch(`/user/update/parcel/${parcelId}`, parcelData);
+      const res = await axiosSecure.patch(
+        `/user/update/parcel/${parcelId}`,
+        parcelData
+      );
       if (res.data.modifiedCount > 0) {
         refetch();
         toast.success("Parcel updated successfully!");
-        navigate("/dashboard/myParcels")
+        navigate("/dashboard/myParcels");
       }
     } catch (error) {
       toast.error("Failed to update parcel. Please try again.", error);
