@@ -28,7 +28,7 @@ const UpdateParcel = () => {
   } = useQuery({
     queryKey: ["parcel", parcelId],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/parcel/${parcelId}`);
+      const { data } = await axiosSecure(`/user/parcel/${parcelId}`);
       return data;
     },
   });

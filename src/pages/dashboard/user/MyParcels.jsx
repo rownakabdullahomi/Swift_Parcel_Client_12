@@ -209,10 +209,10 @@ const MyParcels = () => {
                 <td className="border border-gray-300 p-2 capitalize">
                   {parcel?.status}
                 </td>
-                <td className="border border-gray-300 p-2 space-y-2 sm:space-y-0 sm:space-x-2">
+                <td className="border flex flex-wrap gap-1 border-gray-300 p-2">
                   <Link
                     to={`/dashboard/update/parcel/${parcel?._id}`}
-                    className={`m-1 px-2 py-1 rounded capitalize ${
+                    className={`flex-1 px-2 py-1 rounded capitalize ${
                       parcel.status === "pending"
                         ? "bg-blue-500 text-white"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -223,7 +223,7 @@ const MyParcels = () => {
                   </Link>
                   <button
                     onClick={() => handleCancel(parcel?._id)}
-                    className={`m-1 px-2 py-1 rounded ${
+                    className={`flex-1 px-2 py-1 rounded ${
                       parcel.status === "pending"
                         ? "bg-red-500 text-white"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -241,7 +241,7 @@ const MyParcels = () => {
                           toast.error("Review already submitted!");
                         }
                       }}
-                      className="m-1 px-2 py-1 rounded bg-green-500 text-white"
+                      className="flex-1 px-2 py-1 rounded bg-green-500 text-white"
                     >
                       Review
                     </button>
@@ -251,11 +251,15 @@ const MyParcels = () => {
                     onClick={() => {
                       if (parcel.paymentStatus) {
                         toast.error("Payment already done!");
-                      } else {
+                      } 
+                      else if (parcel.status === "cancel") {
+                        toast.error("The order is canceled!");
+                      } 
+                      else {
                         navigate("/dashboard/checkout", { state: { parcel } });
                       }
                     }}
-                    className="px-2 py-1 m-1 rounded bg-yellow-500 text-white"
+                    className="flex-1 px-2 py-1 rounded bg-yellow-500 text-white"
                   >
                     Pay
                   </button>

@@ -5,6 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import userImage from "../../assets/user.gif";
 import useRole from "../../hooks/useRole";
+import { PiBellSimpleRinging } from "react-icons/pi";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(() => {
@@ -144,14 +145,19 @@ const Navbar = () => {
         <div className="flex items-center space-x-4">
           {/* <p className="text-sm text-gray-500">{user && user.email}</p> */}
 
+          {/* notification icon */}
+          <button className="text-2xl text-orange-500 p-2">
+          <PiBellSimpleRinging></PiBellSimpleRinging>
+          </button>
+
           {/* Theme Toggle */}
           <button
-            className="btn btn-ghost text-2xl"
+            className="p-2 text-2xl"
             onClick={toggleTheme}
             title="Toggle Theme"
           >
             {theme === "light" ? (
-              <FaMoon className="text-primary transition-transform duration-300 hover:scale-110" />
+              <FaMoon className="text-gray-300 transition-transform duration-300 hover:scale-110" />
             ) : (
               <FaSun className="text-yellow-500 transition-transform duration-300 hover:scale-110" />
             )}
@@ -173,7 +179,7 @@ const Navbar = () => {
                     referrerPolicy="no-referrer"
                     alt="User Profile"
                     src={user?.photoURL || "https://via.placeholder.com/40"}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover animate-pulse"
                   />
                 ) : (
                   <img src={userImage} alt="" />

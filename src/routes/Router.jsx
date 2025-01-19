@@ -20,16 +20,23 @@ import PaymentSuccess from "../pages/dashboard/user/PaymentSuccess";
 import DeliveryManRoute from "./DeliveryManRoute";
 import UserRoute from "./UserRoute";
 import AdminRoute from "./AdminRoute";
+import Error404 from "../pages/Error404";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
+import Blogs from "../pages/Blogs";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement: <p>404 Not Found</p>,
+    errorElement: <Error404></Error404>,
     children: [
       // { path: "/login", element: <Login /> },
       // { path: "/signup", element: <SignUp /> },
       { path: "/", element: <Home></Home> },
+      { path: "/about", element: <About></About> },
+      { path: "/contact", element: <Contact></Contact> },
+      { path: "/blogs", element: <Blogs></Blogs> },
     ],
   },
   { path: "/login", element: <Login /> },
@@ -42,6 +49,7 @@ const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    errorElement: <Error404></Error404>,
     children: [
       // {
       //   index: true,
