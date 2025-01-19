@@ -20,6 +20,12 @@ const MyParcels = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedParcel, setSelectedParcel] = useState(null);
 
+  // Get today's date using moment.js
+  const today = moment();
+
+  // Format date for the 'min' attribute in YYYY-MM-DD
+  const minDate = today.format("YYYY-MM-DD");
+
   const openModal = (parcel) => {
     setSelectedParcel(parcel);
     setIsModalOpen(true);
@@ -102,11 +108,18 @@ const MyParcels = () => {
     const form = e.target;
     const rating = form.rating.value;
     const feedback = form.feedback.value;
+    const rawReviewDate = form.reviewDate.value;
+
+    // Format the date using moment.js
+    const reviewDate = moment(rawReviewDate, "YYYY-MM-DD").format("DD/MM/YYYY");
 
     const review = {
       rating,
       feedback,
+      reviewDate,
     };
+
+    console.log(review);
 
     try {
       const res = await axiosSecure.put(
@@ -233,23 +246,19 @@ const MyParcels = () => {
                       Review
                     </button>
                   )}
-                  {parcel.paymentStatus ? (
-                    <button
-                      onClick={() => toast.error("Payment already done!")}
-                      className="px-2 py-1 rounded bg-yellow-500 text-white"
-                    >
-                      Pay
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() =>
-                        navigate("/dashboard/checkout", { state: { parcel } })
+
+                  <button
+                    onClick={() => {
+                      if (parcel.paymentStatus) {
+                        toast.error("Payment already done!");
+                      } else {
+                        navigate("/dashboard/checkout", { state: { parcel } });
                       }
-                      className="px-2 py-1 rounded bg-yellow-500 text-white"
-                    >
-                      Pay
-                    </button>
-                  )}
+                    }}
+                    className="px-2 py-1 m-1 rounded bg-yellow-500 text-white"
+                  >
+                    Pay
+                  </button>
                 </td>
               </tr>
             ))}
@@ -261,26 +270,42 @@ const MyParcels = () => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        className="bg-white rounded-lg p-6 shadow-lg mx-auto max-w-full sm:max-w-lg"
+        appElement={document.getElementById("root")}
+        className="bg-white rounded-lg  p-6 shadow-lg mt-4 mx-auto max-w-full sm:max-w-lg"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50"
       >
         <h2 className="text-2xl font-bold mb-4 text-center">
           Submit Your Review
         </h2>
         <form onSubmit={handleSubmitReview}>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-1">User's Image:</label>
-            <img
-              src={user?.photoURL}
-              alt="User"
-              className="w-16 h-16 rounded-full border border-gray-300 mx-auto sm:mx-0"
-            />
+          <div className="flex justify-between items-center">
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-1">
+                User&apos;s Name:
+              </label>
+              <input
+                type="text"
+                value={user?.displayName}
+                readOnly
+                className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+              />
+            </div>
+            <div className="mb-4">
+              {/* <label className="block text-gray-700 mb-1">
+                User&apos;s Image:
+              </label> */}
+              <img
+                src={user?.photoURL}
+                alt="User"
+                className="w-16 h-16 rounded-full border border-gray-300 mx-auto sm:mx-0"
+              />
+            </div>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">User's Name:</label>
+            <label className="block text-gray-700 mb-1">Delivery Man ID:</label>
             <input
               type="text"
-              value={user?.displayName}
+              value={selectedParcel?.deliveryManId}
               readOnly
               className="w-full p-2 border border-gray-300 rounded bg-gray-100"
             />
@@ -288,8 +313,9 @@ const MyParcels = () => {
           <div className="mb-4">
             <label className="block text-gray-700 mb-1">Delivery Man ID:</label>
             <input
-              type="text"
-              value={selectedParcel?.deliveryManId}
+              type="date"
+              name="reviewDate"
+              value={minDate}
               readOnly
               className="w-full p-2 border border-gray-300 rounded bg-gray-100"
             />

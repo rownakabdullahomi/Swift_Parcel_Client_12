@@ -4,12 +4,15 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import moment from 'moment';
 import usePhone from "../../../hooks/usePhone";
+import useUserImage from "../../../hooks/useUserImage";
 
 const BookParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [calculatedPrice, setCalculatedPrice] = useState(0.0);
   const [userPhone] = usePhone();
+  const [userImageURL] = useUserImage();
+  // console.log(userImageURL);
 
 //  console.log(userPhone);
 
@@ -60,6 +63,7 @@ const BookParcel = () => {
     const longitude = parseFloat(form.longitude.value);
     const price = calculatedPrice;
     const status = "pending";
+    
 
       // Format the date using moment.js
   const requestedDeliveryDate = moment(rawRequestedDeliveryDate, "YYYY-MM-DD").format("DD/MM/YYYY");
@@ -79,6 +83,7 @@ const BookParcel = () => {
       longitude,
       price,
       status,
+      userImageURL,
     };
 
     // console.log("Parcel Data:", parcelData);
