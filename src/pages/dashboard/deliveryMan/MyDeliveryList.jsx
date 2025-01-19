@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useUserId from "../../../hooks/useUserId";
+import LoadingSpinner from "../../../components/shared/LoadingSpinner";
 
 // Fix Leaflet marker icon issue
 delete L.Icon.Default.prototype._getIconUrl;
@@ -100,7 +101,7 @@ const MyDeliveryList = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   return (

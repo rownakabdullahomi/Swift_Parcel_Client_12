@@ -21,7 +21,7 @@ const CheckoutForm = ({ parcel }) => {
       axiosSecure
         .post("/create-payment-intent", { price: parcel.price })
         .then((res) => {
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -92,7 +92,7 @@ const CheckoutForm = ({ parcel }) => {
 
           if (res.data.modifiedCount > 0) {
             toast.success("Payment successful!");
-            navigate("/dashboard/payment-success", { state: { parcel } });
+            navigate("/dashboard/payment-success", { state: { parcel, paymentInfo } });
           } else {
             toast.error(
               "Failed to update payment details. Please contact support."

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useUserId from "../../../hooks/useUserId";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/shared/LoadingSpinner";
 
 const MyReviews = () => {
   const axiosSecure = useAxiosSecure();
@@ -16,7 +17,7 @@ const MyReviews = () => {
 
   console.log(reviews);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   return (
