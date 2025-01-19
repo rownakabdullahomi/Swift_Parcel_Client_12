@@ -17,6 +17,9 @@ import AllDeliveryMan from "../pages/dashboard/admin/AllDeliveryMan";
 import AllUsers from "../pages/dashboard/admin/AllUsers";
 import CheckoutPage from "../pages/dashboard/user/CheckoutPage";
 import PaymentSuccess from "../pages/dashboard/user/PaymentSuccess";
+import DeliveryManRoute from "./DeliveryManRoute";
+import UserRoute from "./UserRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -44,54 +47,62 @@ const router = createBrowserRouter([
       //   index: true,
       //   element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
       // },
+
+       // Normal user routes
       {
         path: "bookParcel",
-        element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
+        element: <UserRoute><BookParcel></BookParcel></UserRoute>
       },
       {
         path: "myParcels",
-        element: <PrivateRoute><MyParcels></MyParcels></PrivateRoute>
+        element: <UserRoute><MyParcels></MyParcels></UserRoute>
       },
       {
         path: "update/parcel/:id",
-        element: <PrivateRoute><UpdateParcel></UpdateParcel></PrivateRoute>
-      },
-      {
-        path: "myProfile",
-        element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
-      },
-      {
-        path: "myDeliveryList",
-        element: <PrivateRoute><MyDeliveryList></MyDeliveryList></PrivateRoute>
-      },
-      {
-        path: "myReviews",
-        element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>
+        element: <UserRoute><UpdateParcel></UpdateParcel></UserRoute>
       },
       {
         path: "checkout",
-        element: <PrivateRoute><CheckoutPage></CheckoutPage></PrivateRoute>
+        element: <UserRoute><CheckoutPage></CheckoutPage></UserRoute>
       },
       {
         path: "payment-success",
-        element: <PrivateRoute><PaymentSuccess></PaymentSuccess></PrivateRoute>
+        element: <UserRoute><PaymentSuccess></PaymentSuccess></UserRoute>
       },
-      // Admin
+      {
+        path: "myProfile",
+        element: <UserRoute><MyProfile></MyProfile></UserRoute>
+      },
+
+
+
+      // Delivery man routes
+      {
+        path: "myDeliveryList",
+        element: <DeliveryManRoute><MyDeliveryList></MyDeliveryList></DeliveryManRoute>
+      },
+      {
+        path: "myReviews",
+        element: <DeliveryManRoute><MyReviews></MyReviews></DeliveryManRoute>
+      },
+      
+      
+      // Admin routs
       {
         path: "statistics",
-        element: <PrivateRoute><Statistics></Statistics></PrivateRoute>
+        element: <AdminRoute><Statistics></Statistics></AdminRoute>
       },
       {
         path: "allParcels",
-        element: <PrivateRoute><AllParcels></AllParcels></PrivateRoute>
+        element: <AdminRoute><AllParcels></AllParcels></AdminRoute>
       },
       {
         path: "allDeliveryMan",
-        element: <PrivateRoute><AllDeliveryMan></AllDeliveryMan></PrivateRoute>
+        element: <AdminRoute><AllDeliveryMan></AllDeliveryMan></AdminRoute>
       },
       {
         path: "allUsers",
-        element: <PrivateRoute><AllUsers></AllUsers></PrivateRoute>
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
       },
       
     ],

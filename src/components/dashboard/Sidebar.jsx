@@ -85,7 +85,7 @@ const Sidebar = ({ toggleSidebar }) => {
       </div>
 
       {/* Navigation Section */}
-      <nav className="flex flex-col flex-grow mt-6">
+      <nav className="flex flex-col flex-grow mt-6 mx-2">
         {/* Main menu items */}
         <ul className="space-y-4">
           {currentMenu.map((item, index) => (
@@ -123,9 +123,9 @@ const Sidebar = ({ toggleSidebar }) => {
             </li>
           ))}
         </ul> */}
-
+        <div className="divider divider-warning px-3"></div>
         {/* Back to Home link */}
-        <ul className="mt-auto mb-5">
+        <ul className="">
           <li>
             <Link
               to="/"
