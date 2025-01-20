@@ -50,7 +50,7 @@ Use the following credentials for testing the admin panel:
 
 ### 🧩 **Custom Functionality**
 - ⚙️ **Custom Hooks** for reusability and cleaner code.
-- 🔄 **React Hooks** like `useState`, `useEffect`, `useRef`, `useParams`, and `useNavigate`.
+- 🔄 **React Hooks** like `useState`, `useEffect`, `useRef`, `useParams`, `useNavigate` and etc.
 
 ### 📊 **Dynamic Statistics**
 - 📈 **Admin Dashboard** with real-time statistics:
