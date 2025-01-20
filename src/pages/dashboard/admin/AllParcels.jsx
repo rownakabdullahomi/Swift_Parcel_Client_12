@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/shared/LoadingSpinner";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 const AllParcels = () => {
   const [showModal, setShowModal] = useState(false);
@@ -121,6 +122,10 @@ const AllParcels = () => {
     }
   };
 
+  const showToast = () => {
+    toast.error("Parcel Already Delivered!")
+  }
+
   if (parcelsLoading || usersLoading) return <LoadingSpinner />;
 
   return (
@@ -192,12 +197,22 @@ const AllParcels = () => {
                   {parcel?.status}
                 </td>
                 <td className="border border-gray-300 p-2">
-                  <button
-                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                    onClick={() => handleManageClick(parcel?._id)}
-                  >
-                    Manage
-                  </button>
+                  {parcel.status === "delivered" ? (
+                    <button
+                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                      onClick={showToast}
+                    >
+                      Manage
+                    </button>
+                  ) : (
+                    <button
+                      // disabled={parcel.status === "delivered"}
+                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                      onClick={() => handleManageClick(parcel?._id)}
+                    >
+                      Manage
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
@@ -250,7 +265,7 @@ const AllParcels = () => {
                 Cancel
               </button>
               <input
-                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer"
                 type="submit"
                 value="Assign"
               />

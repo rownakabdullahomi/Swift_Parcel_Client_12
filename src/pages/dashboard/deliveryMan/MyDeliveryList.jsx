@@ -132,7 +132,7 @@ const MyDeliveryList = () => {
                   <td className="border border-gray-300 p-2">{request.approximateDate}</td>
                   <td className="border border-gray-300 p-2">{request.receiverPhone}</td>
                   <td className="border border-gray-300 p-2">{request.deliveryAddress}</td>
-                  <td className="border border-gray-300 p-2 flex gap-2">
+                  <td className="border border-gray-300 p-2 flex flex-grow gap-2">
                     <button
                       onClick={() => handleViewLocation(request.latitude, request.longitude)}
                       className="flex-1 bg-blue-500 text-white px-3 py-1 rounded  hover:bg-blue-600"
