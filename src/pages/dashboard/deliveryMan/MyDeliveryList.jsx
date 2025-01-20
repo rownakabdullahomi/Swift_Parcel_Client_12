@@ -132,22 +132,22 @@ const MyDeliveryList = () => {
                   <td className="border border-gray-300 p-2">{request.approximateDate}</td>
                   <td className="border border-gray-300 p-2">{request.receiverPhone}</td>
                   <td className="border border-gray-300 p-2">{request.deliveryAddress}</td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="border border-gray-300 p-2 flex gap-2">
                     <button
                       onClick={() => handleViewLocation(request.latitude, request.longitude)}
-                      className="bg-blue-500 text-white px-3 py-1 rounded m-2 hover:bg-blue-600"
+                      className="flex-1 bg-blue-500 text-white px-3 py-1 rounded  hover:bg-blue-600"
                     >
                       View Location
                     </button>
                     <button
                       onClick={() => handleCancel(request._id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded m-2 hover:bg-red-600"
+                      className="flex-1 bg-red-500 text-white px-3 py-1 rounded  hover:bg-red-600"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={() => handleDeliver(request._id)}
-                      className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                      className="flex-1 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
                     >
                       Deliver
                     </button>
