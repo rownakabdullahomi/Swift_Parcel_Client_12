@@ -1,7 +1,7 @@
 
 # SwiftParcel - Client Side 🚀  
 
-![SwiftParcel](https://i.ibb.co.com/Wpdy5kxX/Screenshot-1.png) <!-- Replace with a real screenshot if available -->
+![SwiftParcel](https://i.ibb.co.com/Wpdy5kxX/Screenshot-1.png)
 
 ---
 
@@ -90,7 +90,7 @@ Ensure you have **Node.js (v16+)** and **npm/yarn** installed.
 
 ### 2️⃣ Clone the Repository  
 ```sh
-git clone https://github.com/your-username/swift-parcel-client.git
+git clone https://github.com/your-username/Swift_Parcel_Client_12.git
 cd swift-parcel-client
 ```
 
