@@ -91,7 +91,7 @@ Ensure you have **Node.js (v16+)** and **npm/yarn** installed.
 ### 2️⃣ Clone the Repository  
 ```sh
 git clone https://github.com/your-username/Swift_Parcel_Client_12.git
-cd swift-parcel-client
+cd Swift_Parcel_Client_12
 ```
 
 ### 3️⃣ Install Dependencies  
@@ -121,8 +121,6 @@ Visit **[http://localhost:5173](http://localhost:5173)**
 ## 🙌 Acknowledgments  
 
 Special thanks to **open-source libraries** and tools that made this project possible! 💜  
-
-Happy Coding! 😊
 
 ---
 
