@@ -6,9 +6,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import { Star } from "lucide-react";
-import Headings from "../shared/Headings";
 import { motion } from "framer-motion";
+
+
+import Headings from "../shared/Headings";
+import { FaStar } from "react-icons/fa";
+// import { motion } from "framer-motion";
 const Reviews = () => {
   const axiosPublic = useAxiosPublic();
   const {
@@ -28,10 +31,22 @@ const Reviews = () => {
 
   return (
     <div className="px-4 lg:px-6">
-      <Headings
-        heading={"Customer Reviews"}
-        subHeading={"Real Feedback from Our Happy Clients"}
-      ></Headings>
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 2.2, // Animation duration in seconds
+          ease: "easeOut", // Smooth easing
+          repeat: Infinity, // Repeat infinitely
+          repeatType: "mirror", // Type of repeat (can also be 'loop' or 'mirror')
+        }}
+      >
+        <Headings
+          heading={"Customer Reviews"}
+          subHeading={"Real Feedback from Our Happy Clients"}
+        ></Headings>
+      </motion.div>
+
       <div className="relative">
         {/* Swiper Component */}
         <Swiper
@@ -68,7 +83,7 @@ const Reviews = () => {
               {/* ⭐ Star Rating */}
               <div className="flex justify-center gap-1 my-2">
                 {[...Array(parseInt(review.rating))].map((_, i) => (
-                  <Star
+                  <FaStar
                     key={i}
                     size={20}
                     className="text-yellow-500 fill-yellow-500"

@@ -42,6 +42,7 @@ const Sidebar = ({ toggleSidebar }) => {
         path: "/dashboard/myDeliveryList",
       },
       { name: "My Reviews", icon: <FaStar />, path: "/dashboard/myReviews" },
+      { name: "My Profile", icon: <FaUser />, path: "/dashboard/myProfile" },
     ],
     Admin: [
       {
@@ -56,6 +57,7 @@ const Sidebar = ({ toggleSidebar }) => {
         icon: <FaTruck />,
         path: "/dashboard/allDeliveryMan",
       },
+      { name: "My Profile", icon: <FaUser />, path: "/dashboard/myProfile" },
     ],
   };
 

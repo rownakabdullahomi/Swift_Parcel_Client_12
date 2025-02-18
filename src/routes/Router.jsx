@@ -103,9 +103,7 @@ const router = createBrowserRouter([
       {
         path: "myProfile",
         element: (
-          <UserRoute>
             <MyProfile></MyProfile>
-          </UserRoute>
         ),
       },
 
