@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import Headings from "../shared/Headings";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const HomeStatistics = () => {
     const axiosPublic = useAxiosPublic();
@@ -24,7 +25,7 @@ const HomeStatistics = () => {
   const [ref2, inView2] = useInView({ threshold: 0.5 });
   const [ref3, inView3] = useInView({ threshold: 0.5 });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   if (isError) return <div>Error loading statistics.</div>;
 
   return (
