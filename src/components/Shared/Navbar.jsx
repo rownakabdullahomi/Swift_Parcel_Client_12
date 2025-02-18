@@ -5,7 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import userImage from "../../assets/user.gif";
 import useRole from "../../hooks/useRole";
-import { PiBellSimpleRinging } from "react-icons/pi";
+// import { PiBellSimpleRinging } from "react-icons/pi";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(() => {
@@ -138,10 +138,10 @@ const Navbar = () => {
             {dropdownOpen && (
               <ul className="menu dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-10">
                 <li className="font-bold italic text-xl my-2 mx-auto tracking-tight relative group">
-                  <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-lg opacity-30 group-hover:opacity-70 transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-lg opacity-30 group-hover:opacity-70 transition-opacity duration-300 mb-5"></span>
                   <Link
                     to={"/"}
-                    className="flex gap-0 relative text-gray-600 group-hover:text-white transition-colors duration-300"
+                    className="flex gap-0 relative text-gray-500 group-hover:text-white transition-colors duration-300"
                   >
                     <span className="text-yellow-600">S</span>wift
                     <span className="text-red-600">P</span>arcel
@@ -164,9 +164,9 @@ const Navbar = () => {
           {/* <p className="text-sm text-gray-500">{user && user.email}</p> */}
 
           {/* notification icon */}
-          <button className="text-2xl text-orange-500 p-2">
+          {/* <button className="text-2xl text-orange-500 p-2">
             <PiBellSimpleRinging></PiBellSimpleRinging>
-          </button>
+          </button> */}
 
           {/* Theme Toggle */}
           <button
