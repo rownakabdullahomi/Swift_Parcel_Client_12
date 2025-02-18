@@ -17,8 +17,6 @@ const Navbar = () => {
   const profileDropdownRef = useRef(null);
   const [userType] = useRole();
 
-
-
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -68,6 +66,26 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to={
+                userType === "User"
+                  ? "/dashboard/bookParcel"
+                  : userType === "DeliveryMan"
+                  ? "/dashboard/myDeliveryList"
+                  : "/dashboard/statistics"
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/myProfile"}>My Profile</NavLink>
+          </li>
+        </>
+      )}
       <li>
         <NavLink to="/about">About Us</NavLink>
       </li>
@@ -147,7 +165,7 @@ const Navbar = () => {
 
           {/* notification icon */}
           <button className="text-2xl text-orange-500 p-2">
-          <PiBellSimpleRinging></PiBellSimpleRinging>
+            <PiBellSimpleRinging></PiBellSimpleRinging>
           </button>
 
           {/* Theme Toggle */}

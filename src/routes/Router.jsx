@@ -24,6 +24,7 @@ import Error404 from "../pages/Error404";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Blogs from "../pages/Blogs";
+import MyProfileAll from "../pages/MyProfileAll";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
       { path: "/about", element: <About></About> },
       { path: "/contact", element: <Contact></Contact> },
       { path: "/blogs", element: <Blogs></Blogs> },
+      {path: "/myProfile", element: <MyProfileAll/>,
+      },
     ],
   },
   { path: "/login", element: <Login /> },
@@ -56,63 +59,107 @@ const router = createBrowserRouter([
       //   element: <PrivateRoute><BookParcel></BookParcel></PrivateRoute>
       // },
 
-       // Normal user routes
+      // Normal user routes
       {
         path: "bookParcel",
-        element: <UserRoute><BookParcel></BookParcel></UserRoute>
+        element: (
+          <UserRoute>
+            <BookParcel></BookParcel>
+          </UserRoute>
+        ),
       },
       {
         path: "myParcels",
-        element: <UserRoute><MyParcels></MyParcels></UserRoute>
+        element: (
+          <UserRoute>
+            <MyParcels></MyParcels>
+          </UserRoute>
+        ),
       },
       {
         path: "update/parcel/:id",
-        element: <UserRoute><UpdateParcel></UpdateParcel></UserRoute>
+        element: (
+          <UserRoute>
+            <UpdateParcel></UpdateParcel>
+          </UserRoute>
+        ),
       },
       {
         path: "checkout",
-        element: <UserRoute><CheckoutPage></CheckoutPage></UserRoute>
+        element: (
+          <UserRoute>
+            <CheckoutPage></CheckoutPage>
+          </UserRoute>
+        ),
       },
       {
         path: "payment-success",
-        element: <UserRoute><PaymentSuccess></PaymentSuccess></UserRoute>
+        element: (
+          <UserRoute>
+            <PaymentSuccess></PaymentSuccess>
+          </UserRoute>
+        ),
       },
       {
         path: "myProfile",
-        element: <UserRoute><MyProfile></MyProfile></UserRoute>
+        element: (
+          <UserRoute>
+            <MyProfile></MyProfile>
+          </UserRoute>
+        ),
       },
-
-
 
       // Delivery man routes
       {
         path: "myDeliveryList",
-        element: <DeliveryManRoute><MyDeliveryList></MyDeliveryList></DeliveryManRoute>
+        element: (
+          <DeliveryManRoute>
+            <MyDeliveryList></MyDeliveryList>
+          </DeliveryManRoute>
+        ),
       },
       {
         path: "myReviews",
-        element: <DeliveryManRoute><MyReviews></MyReviews></DeliveryManRoute>
+        element: (
+          <DeliveryManRoute>
+            <MyReviews></MyReviews>
+          </DeliveryManRoute>
+        ),
       },
-      
-      
+
       // Admin routs
       {
         path: "statistics",
-        element: <AdminRoute><Statistics></Statistics></AdminRoute>
+        element: (
+          <AdminRoute>
+            <Statistics></Statistics>
+          </AdminRoute>
+        ),
       },
       {
         path: "allParcels",
-        element: <AdminRoute><AllParcels></AllParcels></AdminRoute>
+        element: (
+          <AdminRoute>
+            <AllParcels></AllParcels>
+          </AdminRoute>
+        ),
       },
       {
         path: "allDeliveryMan",
-        element: <AdminRoute><AllDeliveryMan></AllDeliveryMan></AdminRoute>
+        element: (
+          <AdminRoute>
+            <AllDeliveryMan></AllDeliveryMan>
+          </AdminRoute>
+        ),
       },
       {
         path: "allUsers",
-        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
       },
-      
     ],
   },
 ]);
