@@ -5,14 +5,19 @@ const Banner = () => {
   return (
     <div
       className="w-full h-[90vh] bg-center bg-cover bg-no-repeat relative"
-      style={{ backgroundImage: `url(${BannerImg})` }}
+      // style={{ backgroundImage: `url(${BannerImg})` }}
     >
+      <img
+        src={BannerImg}
+        alt="Banner"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      />
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 mt-10">
           <span className="text-yellow-500">
             <Typewriter
               words={[
@@ -32,7 +37,7 @@ const Banner = () => {
         <p className="text-lg md:text-xl mb-8">
           Fast, reliable, and secure parcel delivery at your fingertips.
         </p>
-        <div className="w-full max-w-md flex">
+        {/* <div className="w-full max-w-md flex">
           <input
             type="text"
             placeholder="Search here ..."
@@ -41,7 +46,7 @@ const Banner = () => {
           <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-r-md">
             Search
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
