@@ -69,7 +69,7 @@ const Reviews = () => {
               className="p-10 bg-base-200 shadow-lg rounded-lg text-center"
             >
               {/* Profile Image with Dashed Border */}
-              <div className="w-24 h-24 mx-auto rounded-full border-4 border-dashed border-gray-400 overflow-hidden">
+              <div className="w-24 h-24 mx-auto rounded-full border-4 border-dashed border-yellow-500 overflow-hidden">
                 <img
                   src={review.userImageURL || "https://via.placeholder.com/80"}
                   alt={review.name}

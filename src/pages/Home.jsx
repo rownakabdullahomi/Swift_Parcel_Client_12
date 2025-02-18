@@ -6,6 +6,7 @@ import TopDeliveryMan from "../components/home/TopDeliveryMan";
 import Reviews from "../components/home/Reviews";
 import Availability from "../components/home/Availability";
 import Faq from "../components/home/Faq";
+import ContactUs from "../components/home/ContactUs";
 
 const Home = () => {
   return (
@@ -23,15 +24,20 @@ const Home = () => {
         <HomeStatistics></HomeStatistics>
       </section>
       <section>
-        <Availability/>
+        <Availability />
       </section>
       <section>
         <TopDeliveryMan></TopDeliveryMan>
       </section>
       <section>
-        <Reviews/>
+        <Reviews />
       </section>
-      <section><Faq/></section>
+      <section>
+        <Faq />
+      </section>
+      <section>
+        <ContactUs />
+      </section>
     </div>
   );
 };

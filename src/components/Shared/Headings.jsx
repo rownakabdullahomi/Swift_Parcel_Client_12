@@ -3,7 +3,7 @@
 const Headings = ({heading, subHeading}) => {
     return (
         <div className="text-center py-20">
-          <h2 className="text-4xl font-bold  mb-4">
+          <h2 className="text-4xl font-bold  mb-4 text-yellow-500">
             {heading}
           </h2>
           <p className="text-xl text-gray-500">

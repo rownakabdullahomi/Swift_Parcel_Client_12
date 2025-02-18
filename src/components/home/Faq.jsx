@@ -50,7 +50,7 @@ const Faq = () => {
 
   return (
     <section className="">
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="lg:max-w-5xl mx-auto px-4">
         <Headings
           heading={
             <motion.h2
@@ -88,7 +88,7 @@ const Faq = () => {
                 onClick={() => toggleFaq(index)}
               >
                 <span>{faq.question}</span>
-                <span className="ml-4 text-yellow-600 font-thin">
+                <span className="ml-4 text-yellow-500 font-thin">
                   {index === activeIndex ? <FaMinus /> : <FaPlus />}
                 </span>
               </button>
