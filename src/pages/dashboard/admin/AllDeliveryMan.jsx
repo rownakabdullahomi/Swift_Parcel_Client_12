@@ -37,7 +37,7 @@ const AllDeliveryMan = () => {
         (parcel) =>
           parcel.deliveryManId === deliveryMan._id && parcel.status === "delivered"
       );
-
+      console.log(deliveredParcels);
       const parcelsDelivered = deliveredParcels.length;
 
       // Calculate average rating from delivered parcels
@@ -71,7 +71,7 @@ const AllDeliveryMan = () => {
               <th className="border border-gray-300 px-4 py-2 text-left">Name</th>
               <th className="border border-gray-300 px-4 py-2 text-left">Phone Number</th>
               <th className="border border-gray-300 px-4 py-2 text-left">Parcels Delivered</th>
-              <th className="border border-gray-300 px-4 py-2 text-left">Average Review</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Average Rating</th>
             </tr>
           </thead>
           <tbody>
