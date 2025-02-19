@@ -140,6 +140,18 @@ const MyProfile = () => {
               readOnly
             />
           </div>
+          {/* <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 cursor-none">
+              Phone:
+            </label>
+            <input
+              type="email"
+              name="phone"
+              defaultValue={currentUser?.phone || ""}
+              className="w-full p-2 border rounded"
+              readOnly
+            />
+          </div> */}
 
           <button
             type="submit"
