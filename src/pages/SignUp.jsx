@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAuth from "../hooks/useAuth";
 import { imageUpload } from "../api/utils";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import SocialLogin from "../components/shared/SocialLogin";
 import { Helmet } from "react-helmet-async";
+import RegisterGif from "../assets/RegisterGif.gif";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -76,149 +77,171 @@ const SignUp = () => {
   };
 
   return (
-    <div className=" bg-base-300 flex items-center justify-center p-8">
+    <div className="lg:max-h-screen flex items-center justify-center p-8">
       <Helmet>
         <title>Signup | SwiftParcel</title>
       </Helmet>
-      <div className="w-full max-w-md bg-base-200 rounded-xl border-2 border-gray-700 shadow-md p-6 space-y-6">
-        <h2 className="text-3xl font-bold text-center ">Create Your Account</h2>
-        <p className="text-sm text-center text-gray-500">
-          Join us to enjoy all the features!
-        </p>
+      <div className="w-full max-w-7xl flex flex-col md:flex-row justify-around gap-10 bg-base-100 rounded-xl shadow-lg p-6 overflow-hidden">
+        {/* Left Side - GIF */}
+        <div className="flex flex-col justify-center items-center">
+          <img
+            src={RegisterGif}
+            alt="Register"
+            className="lg:max-h-[400px] w-auto object-contain"
+          />
+          {/* Back to Home Button */}
+          <button
+            onClick={() => navigate("/")}
+            className="btn btn-outline btn-warning mt-5 w-full hover:!text-white transform hover:scale-105 transition duration-300"
+          >
+            <FaHome size={18} /> Back to Home
+          </button>
+        </div>
+        {/* right side */}
+        <div className="w-full max-w-md bg-base-200 rounded-xl border-2 border-gray-700 shadow-md p-6 space-y-6">
+          <h2 className="text-3xl font-bold text-center ">
+            Create Your Account
+          </h2>
+          <p className="text-sm text-center text-gray-500">
+            Join us to enjoy all the features!
+          </p>
 
-        {/* Registration Form */}
-        <form onSubmit={handleRegister}>
-          <div className="space-y-4">
-            {/* Name Input */}
-            <div>
-              <label className="block text-sm font-medium ">Full Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter your full name"
-                className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
-                required
-              />
-            </div>
-
-            {/* Image Input */}
-            <div>
-              <label htmlFor="image" className="block text-sm font-medium mb-1">
-                Select Image
-              </label>
-              <input
-                required
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-              />
-            </div>
-
-            {/* Email Input */}
-            <div>
-              <label className="block text-sm font-medium ">
-                Email Address
-              </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
-                required
-              />
-            </div>
-
-            {/* Phone Number Input */}
-            <div>
-              <label className="block text-sm font-medium ">Phone Number</label>
-              <input
-                type="text"
-                name="phone"
-                placeholder="Enter your phone number"
-                className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
-                required
-              />
-            </div>
-
-            {/* User Type Dropdown */}
-            <div>
-              <label
-                htmlFor="userType"
-                className="block text-sm font-medium mb-1"
-              >
-                User Type
-              </label>
-              <select
-                id="userType"
-                name="userType"
-                className="select select-bordered w-full mt-1 mb-1 focus:ring-2 focus:ring-secondary focus:outline-none transition-all duration-300 ease-in-out bg-base-100 hover:bg-base-200 focus:bg-base-300"
-                required
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select User Type
-                </option>
-                <option value="User">User</option>
-                <option value="DeliveryMan">Delivery Man</option>
-                {/* <option value="Admin">Admin</option> */}
-              </select>
-            </div>
-
-            {/* Password Input */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <div className="relative">
+          {/* Registration Form */}
+          <form onSubmit={handleRegister}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Name Input */}
+              <div>
+                <label className="block text-sm font-medium">Full Name</label>
                 <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  placeholder="Create a password"
+                  type="text"
+                  name="name"
+                  placeholder="Enter your full name"
                   className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
                   required
                 />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                  onClick={handleShowPassword}
+              </div>
+
+              {/* Image Input */}
+              <div>
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium mb-1"
                 >
-                  {showPassword ? (
-                    <FaEyeSlash size={20} />
-                  ) : (
-                    <FaEye size={20} />
-                  )}
-                </button>
+                  Select Image
+                </label>
+                <input
+                  required
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                />
+              </div>
+
+              {/* Email Input */}
+              <div>
+                <label className="block text-sm font-medium">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
+                  required
+                />
+              </div>
+
+              {/* Phone Number Input */}
+              <div>
+                <label className="block text-sm font-medium">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Enter your phone number"
+                  className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
+                  required
+                />
+              </div>
+
+              {/* User Type Dropdown */}
+              <div>
+                <label
+                  htmlFor="userType"
+                  className="block text-sm font-medium mb-1"
+                >
+                  User Type
+                </label>
+                <select
+                  id="userType"
+                  name="userType"
+                  className="select select-bordered w-full mt-1 focus:ring-2 focus:ring-secondary"
+                  required
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select User Type
+                  </option>
+                  <option value="User">User</option>
+                  <option value="DeliveryMan">Delivery Man</option>
+                </select>
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <label className="block text-sm font-medium">Password</label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Create a password"
+                    className="input input-bordered w-full mt-1 focus:ring focus:ring-secondary"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                    onClick={handleShowPassword}
+                  >
+                    {showPassword ? (
+                      <FaEyeSlash size={20} />
+                    ) : (
+                      <FaEye size={20} />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+            <div className="lg:flex items-center justify-between mt-6">
+              {/* Register Button */}
+              <button
+                type="submit"
+                className="btn btn-secondary btn-outline lg:flex-1 w-full"
+              >
+                {loading ? (
+                  <TbFidgetSpinner className="animate-spin m-auto" />
+                ) : (
+                  "Register"
+                )}
+              </button>
+              {/* Divider */}
+              <div className="divider divide-y text-sm text-gray-400">OR</div>
 
-          {/* Register Button */}
-          <button
-            type="submit"
-            className="btn btn-secondary btn-outline w-full mt-6"
-          >
-            {loading ? (
-              <TbFidgetSpinner className="animate-spin m-auto" />
-            ) : (
-              "Register"
-            )}
-          </button>
-        </form>
+              {/* Social Register */}
+              <SocialLogin></SocialLogin>
+            </div>
+          </form>
 
-        {/* Divider */}
-        <div className="divider text-sm text-gray-400">OR</div>
-
-        {/* Social Register */}
-        <SocialLogin></SocialLogin>
-
-        {/* Login Link */}
-        <p className="text-center text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link to="/login" className="text-primary font-medium">
-            Login here
-          </Link>
-        </p>
+          {/* Login Link */}
+          <p className="text-center text-sm text-gray-600">
+            Already have an account?{" "}
+            <Link to="/login" className="text-primary font-medium">
+              Login here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
