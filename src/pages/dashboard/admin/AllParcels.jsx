@@ -12,6 +12,7 @@ const AllParcels = () => {
   const [deliveryMen, setDeliveryMen] = useState([]);
   const [parcels, setParcels] = useState([]); // State to manage local parcel data
   const [searchDateRange, setSearchDateRange] = useState({ from: "", to: "" });
+  const [sortOption, setSortOption] = useState("");
 
   // Get today's date using moment.js
   const today = moment();
@@ -56,6 +57,40 @@ const AllParcels = () => {
       setParcels(fetchedParcels); // Initialize parcels with fetched data
     }
   }, [fetchedParcels]);
+
+  useEffect(() => {
+    if (sortOption) {
+      const sortedParcels = [...parcels].sort((a, b) => {
+        let valueA, valueB;
+
+        switch (sortOption) {
+          case "requestedDeliveryDateAsc":
+            valueA = moment(a.requestedDeliveryDate, "DD/MM/YYYY").toDate();
+            valueB = moment(b.requestedDeliveryDate, "DD/MM/YYYY").toDate();
+            return valueA - valueB;
+          case "requestedDeliveryDateDesc":
+            valueA = moment(a.requestedDeliveryDate, "DD/MM/YYYY").toDate();
+            valueB = moment(b.requestedDeliveryDate, "DD/MM/YYYY").toDate();
+            return valueB - valueA;
+          case "bookingDateAsc":
+            valueA = moment(a.bookingDate).toDate();
+            valueB = moment(b.bookingDate).toDate();
+            return valueA - valueB;
+          case "bookingDateDesc":
+            valueA = moment(a.bookingDate).toDate();
+            valueB = moment(b.bookingDate).toDate();
+            return valueB - valueA;
+          case "priceAsc":
+            return a.price - b.price;
+          case "priceDesc":
+            return b.price - a.price;
+          default:
+            return 0;
+        }
+      });
+      setParcels(sortedParcels);
+    }
+  }, [parcels, sortOption]);
 
   const handleManageClick = (parcelId) => {
     setSelectedParcelId(parcelId);
@@ -103,28 +138,36 @@ const AllParcels = () => {
 
   const handleSearch = async () => {
     let { from, to } = searchDateRange;
+  
     if (!from || !to) {
       Swal.fire("Error", "Please select both date range fields.", "error");
       return;
     }
-
-    // Format the date using moment.js
-    from = moment(from, "YYYY-MM-DD").format("DD/MM/YYYY");
-    to = moment(to, "YYYY-MM-DD").format("DD/MM/YYYY");
-    // console.log(from, to);
+  
     try {
-      const { data } = await axiosSecure(
-        `/parcels/search?from=${from}&to=${to}`
-      );
-      setParcels(data); // Update state with search results
+      // Fetch all parcels from backend
+      const { data } = await axiosSecure("/all/parcels");
+  
+      // Convert from and to dates to Date objects
+      const fromDate = moment(from, "YYYY-MM-DD").startOf("day").toDate();
+      const toDate = moment(to, "YYYY-MM-DD").endOf("day").toDate();
+  
+      // Filter parcels by bookingDate in frontend
+      const filteredData = data.filter(parcel => {
+        const parcelDate = moment(parcel.bookingDate).toDate();
+        return parcelDate >= fromDate && parcelDate <= toDate;
+      });
+  
+      setParcels(filteredData);
     } catch (error) {
       Swal.fire("Error", "Failed to fetch parcels.", error);
     }
   };
+  
 
   const showToast = () => {
-    toast.error("Parcel Already Delivered!")
-  }
+    toast.error("Parcel Already Delivered!");
+  };
 
   if (parcelsLoading || usersLoading) return <LoadingSpinner />;
 
@@ -133,37 +176,39 @@ const AllParcels = () => {
       <h2 className="text-3xl font-bold mb-6">All Parcels</h2>
 
       {/* Search System */}
-      <div className="flex items-center mb-6 gap-4">
+      <div className="flex flex-row flex-wrap gap-4 justify-between mb-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            From:
-          </label>
           <input
             type="date"
-            className="p-2 border rounded"
             value={searchDateRange.from}
-            onChange={(e) =>
-              setSearchDateRange({ ...searchDateRange, from: e.target.value })
-            }
+            onChange={(e) => setSearchDateRange({ ...searchDateRange, from: e.target.value })}
+            className="border p-2 rounded"
           />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">To:</label>
           <input
             type="date"
-            className="p-2 border rounded"
             value={searchDateRange.to}
-            onChange={(e) =>
-              setSearchDateRange({ ...searchDateRange, to: e.target.value })
-            }
+            onChange={(e) => setSearchDateRange({ ...searchDateRange, to: e.target.value })}
+            className="border p-2 rounded ml-2"
           />
+          <button onClick={handleSearch} className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 mb-[2px] ml-2">
+            Search
+          </button>
         </div>
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={handleSearch}
-        >
-          Search
-        </button>
+        <div>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="border p-2 rounded"
+          >
+            <option value="">Sort By</option>
+            <option value="requestedDeliveryDateAsc">Requested Delivery Date (Asc)</option>
+            <option value="requestedDeliveryDateDesc">Requested Delivery Date (Desc)</option>
+            <option value="bookingDateAsc">Booking Date (Asc)</option>
+            <option value="bookingDateDesc">Booking Date (Desc)</option>
+            <option value="priceAsc">Price (Asc)</option>
+            <option value="priceDesc">Price (Desc)</option>
+          </select>
+        </div>
       </div>
 
       <div className="overflow-x-auto">

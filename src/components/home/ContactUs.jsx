@@ -62,7 +62,7 @@ const ContactUs = () => {
         ></Headings>
       </motion.div>
       <div className="lg:max-w-5xl mx-auto">
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="text"
             name="name"

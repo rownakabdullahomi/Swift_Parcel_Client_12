@@ -3,7 +3,7 @@ import { FaTwitter, FaYoutube, FaFacebook, FaInstagram, FaLinkedin } from "react
 
 const Footer = () => {
   return (
-    <footer className="px-4 lg:px-6 mt-20 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
+    <footer className="px-4 lg:px-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
       <div className="footer p-10 rounded-t-xl lg:flex items-start justify-between gap-10">
         {/* Services Section */}
         <nav data-aos="fade-up">
